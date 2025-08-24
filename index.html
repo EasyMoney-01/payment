@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<body>
+<h3>Multi-Card Stripe Test</h3>
+<button id="test">Test Cards</button>
+<pre id="log"></pre>
+<script>
+const cards = [
+  {number: '4242424242424242', exp_month: 12, exp_year: 2025, cvc: '123'},
+  {number: '4000000000009995', exp_month: 12, exp_year: 2025, cvc: '123'}
+];
+document.getElementById('test').onclick = async () => {
+  const res = await fetch('http://localhost:4242/test-cards', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({cards})
+  });
+  const result = await res.json();
+  document.getElementById('log').textContent = JSON.stringify(result, null, 2);
+};
+</script>
+</body>
+</html>
